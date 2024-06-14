@@ -1,0 +1,4 @@
+#Fri Jun 14 10:37:46 IST 2024
+base.0=C\:\\Flutter1\\IITK-Mail-Client-Official-\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
