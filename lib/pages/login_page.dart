@@ -11,17 +11,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _serverController = TextEditingController();
   bool _isLoading = false;
   bool _isAuthenticated = false;
   bool _isSecure = true; // Default to secure
   String? _errorMessage;
+  String _selectedServer = 'iitk.ac.in'; // Default selected server
+  final List<String> _serverOptions = ['iitk.ac.in']; // List of server options
 
   @override
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
-    _serverController.dispose();
     super.dispose();
   }
 
@@ -34,13 +34,12 @@ class _LoginPageState extends State<LoginPage> {
 
     String username = _usernameController.text;
     String password = _passwordController.text;
-    String server = _serverController.text;
 
     await LoginManager.login(
       context: context,
       username: username,
       password: password,
-      server: server,
+      server: _selectedServer,
       isSecure: _isSecure,
       onLoginResult: (isAuthenticated, errorMessage) {
         setState(() {
@@ -59,22 +58,30 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.black,
         title: const Text('Login'),
         actions: [
-          Container(
-            width: 200,
-            margin: const EdgeInsets.only(right: 16),
-            child: TextField(
-              controller: _serverController,
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: DropdownButton<String>(
+              dropdownColor: Colors.black,
+              value: _selectedServer,
+              icon: const Icon(Icons.arrow_downward, color: Colors.white),
+              iconSize: 24,
+              elevation: 16,
               style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: 'example: iitk.ac.in',
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                filled: true,
-                fillColor: Colors.grey[850],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
+              underline: Container(
+                height: 2,
+                color: Colors.white,
               ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedServer = newValue!;
+                });
+              },
+              items: _serverOptions.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
           ),
         ],
