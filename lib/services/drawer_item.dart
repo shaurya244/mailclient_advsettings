@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_drive/Components/navbar_item.dart';
+import 'package:test_drive/pages/advancedsetting.dart';
 import 'package:test_drive/pages/login_page.dart';
 import 'package:test_drive/services/secure_storage_service.dart';
 
@@ -19,7 +20,11 @@ class DrawerItems extends StatelessWidget {
           NavbarItem(icon: Icons.flag, text: 'Flagged', onTap: () {}),
           NavbarItem(icon: Icons.delete, text: 'Trash', onTap: () {}),
           const Divider(),
-          NavbarItem(icon: Icons.settings, text: 'Settings', onTap: () {}),
+          NavbarItem(icon: Icons.settings, text: 'Settings', onTap: () {
+            Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context)=> AdvancedSetting()));
+          }),
           NavbarItem(icon: Icons.login_sharp, text: 'Log Out', onTap: () {
             SecureStorageService.clearCredentials();  //To clear the saved credentials when logged out
             Navigator.pushReplacement(
