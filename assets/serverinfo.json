@@ -1,0 +1,12 @@
+{
+"iitk":[
+    {
+        "Imap":"qasid.iitk.ac.in",
+        "Imap_port":993,
+        "Smtp":"mmtp.iitk.ac.in",
+        "Smtp_port":465
+
+
+    }
+]
+}
